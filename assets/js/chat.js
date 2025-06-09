@@ -1,7 +1,10 @@
 // Chat interface functionality
 document.addEventListener('DOMContentLoaded', function() {
     const askAiBtn = document.getElementById('askAiBtn');
-    if (!askAiBtn) return; // Exit if button not found
+    if (!askAiBtn) {
+        console.error('Ask AI button not found');
+        return;
+    }
     
     // Create chat modal
     const chatModal = document.createElement('div');
@@ -118,7 +121,6 @@ document.addEventListener('DOMContentLoaded', function() {
             color: var(--text-eerie-black);
             resize: none;
             height: 50px;
-            
             font-family: var(--fontFamily-inter);
             font-size: var(--fontSize-9);
         }
@@ -139,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             align-items: center;
             gap: 0.5rem;
             height: 50px;
-            font-size:1.2rem;
+            font-size: 1.2rem;
         }
         #sendMessage:hover {
             box-shadow: none;
@@ -154,7 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        /* Loading animation */
         .loading {
             display: flex;
             gap: 0.5rem;
@@ -174,7 +175,6 @@ document.addEventListener('DOMContentLoaded', function() {
         @keyframes loading {
             to { transform: rotate(360deg); }
         }
-        /* Error message */
         .error-message {
             background: #ffebee;
             color: #c62828;
@@ -433,7 +433,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Event listeners
-    askAiBtn.addEventListener('click', () => {
+    askAiBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         chatModal.style.display = 'flex';
         userInput.focus();
     });
