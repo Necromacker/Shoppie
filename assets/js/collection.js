@@ -1,3 +1,5 @@
+import config from './config.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const productsContainer = document.querySelector('.products-grid');
     const categoryFilters = document.querySelectorAll('.category-filter');
@@ -13,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load products from the database
     async function loadProducts() {
         try {
-            const response = await fetch('http://localhost:5000/api/products');
+            const response = await fetch(`${config.API_BASE_URL}/api/products`);
             if (!response.ok) {
                 throw new Error('Failed to load products');
             }
@@ -65,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/cart', {
+            const response = await fetch(`${config.API_BASE_URL}/api/cart`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -96,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!token) return;
 
         try {
-            const response = await fetch('http://localhost:5000/api/cart', {
+            const response = await fetch(`${config.API_BASE_URL}/api/cart`, {
                 headers: {
                     'Authorization': `Bearer ${token}`
                 }
