@@ -404,7 +404,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const loadingDiv = showLoading();
             
             try {
-                const response = await fetch('https://shoppie-mlw5.onrender.com/api/chat', {
+                const response = await fetch('https://shoppie-mlw5.onrender.com/chat', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
