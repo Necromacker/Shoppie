@@ -1,3 +1,5 @@
+import config from './config.js';
+
 // Chat interface functionality
 document.addEventListener('DOMContentLoaded', function() {
     const askAiBtn = document.getElementById('askAiBtn');
@@ -396,39 +398,36 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     async function handleUserMessage() {
+        const userInput = document.getElementById('userInput');
         const message = userInput.value.trim();
-        if (message) {
-            addMessage(message, true);
-            userInput.value = '';
+        
+        if (!message) return;
+        
+        // Add user message to chat
+        addMessage(message, true);
+        userInput.value = '';
+        
+        // Show loading state
+        showLoading();
+        
+        try {
+            const response = await fetch(`${config.API_BASE_URL}/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message })
+            });
             
-            const loadingDiv = showLoading();
-            
-            try {
-                const response = await fetch('http://localhost:5000/chat', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ message: message })
-                });
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                
-                loadingDiv.remove();
-                addMessage(data.response);
-            } catch (error) {
-                loadingDiv.remove();
-                showError('Sorry, there was an error connecting to the AI service. Please make sure the backend server is running.');
-                console.error('Error:', error);
+            if (!response.ok) {
+                throw new Error('Failed to get response from AI');
             }
+            
+            const data = await response.json();
+            addMessage(data.response);
+        } catch (error) {
+            console.error('Error:', error);
+            showError('Failed to get response from AI. Please try again.');
         }
     }
 
