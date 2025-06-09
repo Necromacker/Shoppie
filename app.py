@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, session, send_from_directory
+from flask import Flask, request, jsonify, session, send_from_directory, redirect
 from flask_cors import CORS
 import google.generativeai as genai
 import os
@@ -15,7 +15,12 @@ from werkzeug.security import generate_password_hash, check_password_hash
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+# Configure CORS to allow all origins and methods
+CORS(app, resources={r"/*": {
+    "origins": "*",
+    "methods": ["GET", "POST", "OPTIONS"],
+    "allow_headers": ["Content-Type", "Authorization"]
+}})
 
 # Configure JWT
 JWT_SECRET = os.getenv('JWT_SECRET', 'your-secret-key')
@@ -243,6 +248,35 @@ def get_products():
     finally:
         if 'conn' in locals():
             conn.close()
+
+@app.route('/chat', methods=['POST', 'OPTIONS'])
+def chat():
+    if request.method == 'OPTIONS':
+        return '', 200
+        
+    try:
+        data = request.get_json()
+        user_message = data.get('message')
+        
+        if not user_message:
+            return jsonify({'error': 'Message is required'}), 400
+            
+        # Generate response using Gemini
+        response = model.generate_content(user_message)
+        
+        return jsonify({
+            'response': response.text
+        })
+    except Exception as e:
+        print(f"Chat error: {str(e)}")  # Add logging
+        return jsonify({'error': str(e)}), 500
+
+# Add a catch-all route for chat requests
+@app.route('/<path:path>', methods=['POST', 'OPTIONS'])
+def catch_all(path):
+    if path == 'chat':
+        return chat()
+    return jsonify({'error': 'Not found'}), 404
 
 if __name__ == '__main__':
     app.run() 

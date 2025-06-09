@@ -1,19 +1,25 @@
 services:
   - type: web
-    name: shoppie-backend
+    name: shoppie
     env: python
     buildCommand: |
-      mkdir -p database
+      pip install --upgrade pip
       pip install -r requirements.txt
-    startCommand: gunicorn app:app
+    startCommand: python app.py
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
       - key: GOOGLE_API_KEY
         sync: false
-      - key: JWT_SECRET
-        generateValue: true
       - key: JWT_SECRET_KEY
         generateValue: true
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: CORS_METHODS
+        value: "GET,POST,OPTIONS"
+      - key: CORS_HEADERS
+        value: "Content-Type,Authorization"
       - key: FLASK_ENV
-        value: production 
+        value: production
+      - key: PROXY_CHAT_URL
+        value: "https://shoppie-mlw5.onrender.com/proxy/chat" 
