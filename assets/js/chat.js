@@ -95,13 +95,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         .message {
             max-width: 80%;
-            padding: 1.5rem;
+           
             border-radius: 12px;
             animation: fadeIn 0.3s ease;
             border: 2px solid var(--border-eerie-black);
             position: relative;
             word-wrap: break-word;
-            margin: 0 2rem;
+         
         }
         .user-message {
             background: var(--bg-white);

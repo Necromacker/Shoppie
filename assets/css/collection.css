@@ -568,8 +568,8 @@
 /* Messages */
 .message {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
+ 
+
   padding: 1rem 2rem;
   border-radius: 4px;
   color: var(--white);
