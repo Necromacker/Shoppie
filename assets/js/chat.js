@@ -52,6 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
             flex-direction: column;
             box-shadow: var(--shadow-1);
             border: 2px solid var(--border-eerie-black);
+            position: relative;
         }
         .chat-header {
             background: var(--bg-white);
@@ -61,6 +62,9 @@ document.addEventListener('DOMContentLoaded', function() {
             justify-content: space-between;
             align-items: center;
             border-bottom: 2px solid var(--border-eerie-black);
+            position: sticky;
+            top: 0;
+            z-index: 1;
         }
         .chat-header h2 {
             color: var(--text-eerie-black);
@@ -82,27 +86,38 @@ document.addEventListener('DOMContentLoaded', function() {
         .chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 1.5rem;
+            padding: 2rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.5rem;
+            position: relative;
+            height: calc(100% - 140px);
         }
         .message {
             max-width: 80%;
-            padding: 1.2rem;
-            border-radius: 8px;
+            padding: 1.5rem;
+            border-radius: 12px;
             animation: fadeIn 0.3s ease;
             border: 2px solid var(--border-eerie-black);
+            position: relative;
+            word-wrap: break-word;
+            margin: 0 2rem;
         }
         .user-message {
             background: var(--bg-white);
             color: var(--text-eerie-black);
             align-self: flex-end;
+            margin-left: auto;
         }
         .bot-message {
             background: var(--bg-gainsboro);
             color: var(--text-eerie-black);
             align-self: flex-start;
+            margin-right: auto;
+        }
+        .message-content {
+            width: 100%;
+            line-height: 1.5;
         }
         .chat-input-container {
             padding: 1.5rem;
@@ -111,6 +126,9 @@ document.addEventListener('DOMContentLoaded', function() {
             display: flex;
             gap: 1rem;
             border-top: 2px solid var(--border-eerie-black);
+            position: sticky;
+            bottom: 0;
+            z-index: 1;
         }
         #userInput {
             flex: 1;
