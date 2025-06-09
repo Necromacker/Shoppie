@@ -1,0 +1,48 @@
+/* Button styles */
+.btn-primary {
+  background: #ffffff;
+  color: var(--primary-color);
+  border: 2px solid #000;
+  transition: all 0.3s ease;
+  outline: none !important;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus {
+  background: #ffffff;
+  color: var(--primary-color);
+  border: 2px solid #000;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn {
+  background: #ffffff;
+  color: var(--primary-color);
+  border: 2px solid #000;
+  transition: all 0.3s ease;
+  outline: none !important;
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+  background: #ffffff;
+  color: var(--primary-color);
+  border: 2px solid #000;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove all button states styling */
+.btn:active,
+.btn-primary:active,
+.btn:focus,
+.btn-primary:focus {
+  box-shadow: none !important;
+  outline: none !important;
+  background: #ffffff !important;
+  color: var(--primary-color) !important;
+  border: 2px solid #000 !important;
+} 
