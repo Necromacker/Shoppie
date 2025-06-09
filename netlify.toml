@@ -1,0 +1,12 @@
+[build]
+  publish = "."
+  command = ""
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Remove build environment since we're not using Node.js
+# [build.environment]
+#   NODE_VERSION = "16" 
